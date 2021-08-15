@@ -22,6 +22,10 @@ namespace TimeSyncService
             {
                 pi.Display();
                 ServiceWorker.Instance.start();
+                if (Properties.Settings.Default.url == "")
+                {
+                    new ConfigForm().ShowDialog();
+                }
 
                 // Make sure the application runs!
                 Application.Run();
