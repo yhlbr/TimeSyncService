@@ -12,7 +12,6 @@ namespace TimeSyncService
     {
         private static ServiceWorker instance = null;
         private static readonly object padlock = new object();
-        private static int counter = 0;
 
 
         private Timer serviceTimer = null;
