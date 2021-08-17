@@ -9,27 +9,19 @@ namespace TimeSyncService
 {
     static class Program
     {
+        private static UpdateManager mgr;
+
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
         /// </summary>
         [STAThread]
-        static async Task Main()
+        static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ApplicationExit += new EventHandler(OnExit);
 
-            try
-            {
-                using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/yhlbr/TimeSyncService"))
-                {
-                
-                    await mgr.Result.UpdateApp();
-                }
-            }
-            catch (Exception ex)
-            {
-                Library.WriteLog("Update-Fehler: " + ex.Message);
-            }
+            UpdateApp();
 
             // Show the system tray icon.					
             using (ProcessIcon pi = new ProcessIcon())
@@ -44,6 +36,27 @@ namespace TimeSyncService
                 // Make sure the application runs!
                 Application.Run();
             }
+        }
+
+        private static void OnExit(object sender, EventArgs e)
+        {
+            mgr?.Dispose();
+        }
+
+        private static void UpdateApp()
+        {
+            Task.Run(async () =>
+            {
+                try
+                {
+                    mgr = UpdateManager.GitHubUpdateManager("https://github.com/yhlbr/TimeSyncService").Result;
+                    await mgr.UpdateApp();
+                }
+                catch (Exception ex)
+                {
+                    Library.WriteLog("Update-Fehler: " + ex.Message);
+                }
+            });
         }
     }
 }
