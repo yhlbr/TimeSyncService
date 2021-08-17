@@ -32,6 +32,7 @@ namespace TimeSyncService
         private void ConfigForm_Load(object sender, EventArgs e)
         {
             URLTextBox.Text = Properties.Settings.Default.url;
+            versionLabel.Text = "v" + Application.ProductVersion;
             UpdateStatus();
             textChanged();
         }

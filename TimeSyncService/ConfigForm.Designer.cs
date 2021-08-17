@@ -38,6 +38,7 @@ namespace TimeSyncService
             this.URLTextBox = new System.Windows.Forms.TextBox();
             this.statusLabel = new System.Windows.Forms.Label();
             this.startStopBtn = new System.Windows.Forms.Button();
+            this.versionLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // notifyIcon
@@ -91,11 +92,21 @@ namespace TimeSyncService
             this.startStopBtn.UseVisualStyleBackColor = true;
             this.startStopBtn.Click += new System.EventHandler(this.startStopBtn_Click);
             // 
+            // versionLabel
+            // 
+            this.versionLabel.AutoSize = true;
+            this.versionLabel.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.versionLabel.Location = new System.Drawing.Point(9, 110);
+            this.versionLabel.Name = "versionLabel";
+            this.versionLabel.Size = new System.Drawing.Size(0, 13);
+            this.versionLabel.TabIndex = 5;
+            // 
             // ConfigForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 117);
+            this.ClientSize = new System.Drawing.Size(478, 132);
+            this.Controls.Add(this.versionLabel);
             this.Controls.Add(this.startStopBtn);
             this.Controls.Add(this.statusLabel);
             this.Controls.Add(this.URLTextBox);
@@ -120,6 +131,7 @@ namespace TimeSyncService
         private System.Windows.Forms.TextBox URLTextBox;
         private System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Button startStopBtn;
+        private System.Windows.Forms.Label versionLabel;
     }
 }
 
