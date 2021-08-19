@@ -9,7 +9,7 @@ namespace TimeSyncService
 {
     static class Program
     {
-        private static UpdateManager mgr;
+        public static UpdateManager mgr;
 
         /// <summary>
         /// Der Haupteinstiegspunkt für die Anwendung.
@@ -22,6 +22,8 @@ namespace TimeSyncService
             Application.ApplicationExit += new EventHandler(OnExit);
 
             UpdateApp();
+
+            Startup.AddStartupShortcut();
 
             // Show the system tray icon.					
             using (ProcessIcon pi = new ProcessIcon())
