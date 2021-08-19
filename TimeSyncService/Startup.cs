@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows.Forms;
 using IWshRuntimeLibrary;
 using Shell32;
@@ -30,11 +31,26 @@ namespace TimeSyncService
                 startUpFolderPath + "\\" +
                 Application.ProductName + ".lnk");
 
-            shortcut.TargetPath = Application.ExecutablePath;
-            shortcut.WorkingDirectory = Application.StartupPath;
+            string filepath = GetExecutableFilePath();
+            shortcut.TargetPath = filepath;
+            shortcut.WorkingDirectory = Path.GetDirectoryName(filepath);
             shortcut.Description = "RSPI Time Sync Service Autostart";
             shortcut.Save();
             MessageBox.Show("Autostart-Eintrag wurde erstellt.");
+        }
+
+        private static string GetExecutableFilePath()
+        {
+            string filepath = Application.ExecutablePath;
+            string executable = Path.GetFileName(filepath);
+            string path = Path.GetDirectoryName(filepath);
+            string parent = Directory.GetParent(path).FullName;
+            string resultPath = parent + "\\" + executable;
+            if (System.IO.File.Exists(resultPath))
+            {
+                return resultPath;
+            }
+            return filepath;
         }
     }
 }
